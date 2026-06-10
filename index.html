@@ -8,39 +8,58 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --blue: #1684AC;
+      --blue-dark: #0e5a7a;
+      --amber: #F59E0B;
+      --text: #1a1a1a;
+      --muted: #666;
+      --border: rgba(0,0,0,0.07);
+      --bg-soft: #f8f9fa;
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Outfit', sans-serif;
-      background: #FFFFFF;
-      color: #1a1a1a;
+      background: #fff;
+      color: var(--text);
       overflow-x: hidden;
     }
 
-    /* NAVIGATION */
-    .navbar {
+    /* SCROLL PROGRESS BAR */
+    #scroll-progress {
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 16px 24px;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blue), var(--amber));
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 3px;
+      left: 0; right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      padding: 14px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
+      border-bottom: 1px solid var(--border);
     }
 
     .logo {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
-      background: linear-gradient(135deg, #1684AC 0%, #F59E0B 100%);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--amber) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -48,53 +67,69 @@
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 28px;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: #666;
+      color: var(--muted);
       font-weight: 500;
-      transition: color 0.3s;
+      font-size: 15px;
+      transition: color 0.2s;
     }
 
-    .nav-links a:hover {
-      color: #1684AC;
-    }
+    .nav-links a:hover { color: var(--blue); }
 
-    /* HERO SECTION */
+    /* HERO */
     .hero {
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 100px 24px 60px;
-      background: linear-gradient(135deg, #FFFFFF 0%, #f8f9fa 100%);
+      padding: 110px 24px 0;
+      background: linear-gradient(160deg, #fff 0%, #EFF6FF 60%, #FFF8EC 100%);
+      position: relative;
     }
 
     .hero-content {
-      max-width: 700px;
+      max-width: 680px;
     }
 
-    .coming-soon-badge {
-      display: inline-block;
-      background: #F59E0B;
-      color: white;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FEF3C7;
+      color: #92400E;
       padding: 6px 16px;
       border-radius: 100px;
       font-size: 13px;
       font-weight: 600;
       margin-bottom: 24px;
-      letter-spacing: 0.5px;
+      border: 1px solid #FDE68A;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--amber);
+      border-radius: 50%;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
     }
 
     .hero h1 {
-      font-size: 56px;
+      font-size: 58px;
       font-weight: 800;
-      line-height: 1.2;
+      line-height: 1.15;
       margin-bottom: 20px;
-      background: linear-gradient(135deg, #1684AC 0%, #F59E0B 100%);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--amber) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -102,13 +137,20 @@
 
     .hero p {
       font-size: 18px;
-      color: #666;
-      margin-bottom: 32px;
-      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 36px;
+      line-height: 1.65;
     }
 
-    .notify-btn {
-      background: #1684AC;
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--blue);
       color: white;
       border: none;
       padding: 14px 36px;
@@ -116,144 +158,319 @@
       font-weight: 600;
       border-radius: 50px;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.25s;
       font-family: 'Outfit', sans-serif;
     }
 
-    .notify-btn:hover {
-      background: #126d8f;
+    .btn-primary:hover {
+      background: var(--blue-dark);
       transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(22,132,172,0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s;
+      font-family: 'Outfit', sans-serif;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary:hover {
+      background: #EFF6FF;
+    }
+
+    /* SCROLL HINT */
+    .scroll-hint {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: 60px;
+      padding-bottom: 36px;
+      animation: float 2.5s ease-in-out infinite;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .scroll-hint svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--muted);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); opacity: 0.7; }
+      50% { transform: translateY(6px); opacity: 1; }
+    }
+
+    /* REVEAL ANIMATION */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* STATS BAND */
+    .stats-band {
+      background: var(--blue);
+      padding: 20px 24px;
+    }
+
+    .stats-band-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+      color: white;
+    }
+
+    .stat-num {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.25);
     }
 
     /* FEATURES */
     .features {
-      padding: 80px 24px;
-      background: #f8f9fa;
+      padding: 88px 24px;
+      background: var(--bg-soft);
+    }
+
+    .section-eyebrow {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
     }
 
     .section-title {
       text-align: center;
-      font-size: 36px;
+      font-size: 34px;
       font-weight: 700;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .section-subtitle {
       text-align: center;
-      color: #666;
-      margin-bottom: 60px;
-      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 56px;
+      font-size: 17px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
-      max-width: 1200px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
     .feature-card {
       background: white;
-      padding: 32px 24px;
-      border-radius: 24px;
-      text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: 1px solid rgba(0,0,0,0.05);
+      padding: 28px 24px;
+      border-radius: 20px;
+      text-align: left;
+      transition: transform 0.25s, box-shadow 0.25s;
+      border: 1px solid var(--border);
     }
 
     .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.07);
     }
 
     .feature-icon {
-      width: 64px;
-      height: 64px;
-      background: linear-gradient(135deg, #1684AC20 0%, #F59E0B20 100%);
-      border-radius: 20px;
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, rgba(22,132,172,0.12), rgba(245,158,11,0.12));
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
+      margin-bottom: 18px;
     }
 
     .feature-icon svg {
-      width: 32px;
-      height: 32px;
-      stroke: #1684AC;
+      width: 26px;
+      height: 26px;
+      stroke: var(--blue);
     }
 
     .feature-card h3 {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .feature-card p {
-      color: #666;
-      line-height: 1.5;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15px;
     }
 
     /* COUNTDOWN */
     .countdown-section {
       padding: 80px 24px;
-      background: linear-gradient(135deg, #1684AC 0%, #0e5a7a 100%);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
       color: white;
       text-align: center;
     }
 
     .countdown-section h2 {
-      font-size: 36px;
-      margin-bottom: 16px;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
 
-    .countdown-section p {
-      opacity: 0.9;
-      margin-bottom: 40px;
+    .countdown-section > p {
+      opacity: 0.85;
+      margin-bottom: 44px;
+      font-size: 16px;
     }
 
     .countdown-timer {
       display: flex;
       justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
+      gap: 16px;
+      flex-wrap: nowrap;
+      max-width: 480px;
+      margin: 0 auto;
     }
 
     .countdown-item {
       background: rgba(255,255,255,0.15);
       backdrop-filter: blur(10px);
       border-radius: 16px;
-      padding: 20px 28px;
-      min-width: 100px;
+      padding: 16px 0;
+      flex: 1;
+      min-width: 0;
     }
 
     .countdown-number {
-      font-size: 48px;
+      font-size: 40px;
       font-weight: 800;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
 
     .countdown-label {
-      font-size: 14px;
-      opacity: 0.8;
-      margin-top: 8px;
+      font-size: 12px;
+      opacity: 0.75;
+      margin-top: 6px;
+      letter-spacing: 0.3px;
     }
 
-    /* INSTAGRAM SECTION */
-    .instagram-section {
-      padding: 60px 24px;
+    .countdown-colon {
+      font-size: 36px;
+      font-weight: 700;
+      opacity: 0.5;
+      align-self: center;
+      line-height: 1;
+      padding-bottom: 6px;
+    }
+
+    /* HOW IT WORKS */
+    .how-section {
+      padding: 88px 24px;
+      background: #fff;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .step-item {
       text-align: center;
-      background: #FFFFFF;
+      padding: 24px 20px;
+      position: relative;
+    }
+
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), #2196a8);
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .step-item h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .step-item p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    /* INSTAGRAM */
+    .instagram-section {
+      padding: 72px 24px;
+      text-align: center;
+      background: var(--bg-soft);
     }
 
     .instagram-section h3 {
       font-size: 28px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .instagram-section p {
-      color: #666;
+      color: var(--muted);
       margin-bottom: 28px;
       font-size: 16px;
     }
@@ -261,51 +478,56 @@
     .instagram-link {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45);
       padding: 14px 32px;
       border-radius: 50px;
       text-decoration: none;
       color: white;
       font-weight: 600;
-      font-size: 18px;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      font-size: 17px;
+      transition: all 0.25s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     }
 
     .instagram-link:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
     }
 
     .instagram-link svg {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       fill: white;
+      flex-shrink: 0;
     }
 
     /* FOOTER */
     .footer {
-      background: #1a1a1a;
-      color: #888;
+      background: #111;
+      color: #666;
       text-align: center;
-      padding: 32px 24px;
-      font-size: 14px;
+      padding: 28px 24px;
+      font-size: 13px;
+    }
+
+    .footer span {
+      color: #888;
     }
 
     /* MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
       z-index: 2000;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
       opacity: 0;
       visibility: hidden;
-      transition: all 0.3s;
+      transition: opacity 0.3s, visibility 0.3s;
     }
 
     .modal-overlay.active {
@@ -315,184 +537,363 @@
 
     .modal {
       background: white;
-      border-radius: 32px;
-      padding: 32px;
-      max-width: 400px;
-      width: 90%;
+      border-radius: 28px 28px 0 0;
+      padding: 28px 24px 36px;
+      width: 100%;
+      max-width: 480px;
       text-align: center;
-      transform: scale(0.9);
-      transition: transform 0.3s;
+      transform: translateY(40px);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .modal-overlay.active .modal {
-      transform: scale(1);
+      transform: translateY(0);
+    }
+
+    .modal-handle {
+      width: 40px;
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      margin: 0 auto 22px;
     }
 
     .modal h3 {
-      font-size: 24px;
-      margin-bottom: 12px;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
 
     .modal p {
-      color: #666;
-      margin-bottom: 24px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      font-size: 15px;
+    }
+
+    .modal-input-wrap {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    .modal-input-wrap svg {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      stroke: #aaa;
     }
 
     .modal input {
       width: 100%;
-      padding: 14px 16px;
-      border: 1px solid #ddd;
+      padding: 14px 16px 14px 44px;
+      border: 1.5px solid #e5e5e5;
       border-radius: 50px;
       font-family: 'Outfit', sans-serif;
-      font-size: 16px;
-      margin-bottom: 16px;
+      font-size: 15px;
       outline: none;
+      transition: border-color 0.2s;
+      color: var(--text);
     }
 
-    .modal input:focus {
-      border-color: #1684AC;
-    }
+    .modal input:focus { border-color: var(--blue); }
 
-    .modal-close {
-      background: #1684AC;
+    .modal-submit {
+      background: var(--blue);
       color: white;
       border: none;
-      padding: 12px 24px;
+      padding: 14px;
       border-radius: 50px;
       font-weight: 600;
+      font-size: 16px;
       cursor: pointer;
       width: 100%;
+      font-family: 'Outfit', sans-serif;
+      transition: background 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
+
+    .modal-submit:hover { background: var(--blue-dark); }
+    .modal-submit:active { transform: scale(0.98); }
+
+    .modal-submit.loading {
+      background: #aaa;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    .modal-submit.loading .spinner { display: block; }
+    .modal-submit.loading .btn-text { display: none; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     .modal-cancel {
       background: none;
       border: none;
       color: #999;
-      margin-top: 12px;
+      margin-top: 10px;
       cursor: pointer;
+      font-size: 14px;
+      font-family: 'Outfit', sans-serif;
+      width: 100%;
+      padding: 8px;
     }
+
+    /* SUCCESS STATE */
+    .modal-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    .modal-success.show { display: flex; }
+
+    .success-icon {
+      width: 60px;
+      height: 60px;
+      background: #dcfce7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: #16a34a;
+    }
+
+    .modal-form-content.hide { display: none; }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      .navbar {
-        padding: 12px 20px;
-      }
-      
-      .nav-links {
-        display: none;
-      }
-      
-      .hero h1 {
-        font-size: 36px;
-      }
-      
-      .hero p {
-        font-size: 16px;
-      }
-      
-      .section-title {
-        font-size: 28px;
-      }
-      
-      .countdown-number {
-        font-size: 32px;
-      }
-      
-      .countdown-item {
-        padding: 12px 20px;
-        min-width: 70px;
-      }
-      
-      .instagram-link {
-        padding: 12px 24px;
-        font-size: 16px;
-      }
-      
-      .instagram-link svg {
-        width: 20px;
-        height: 20px;
-      }
+      .nav-links { display: none; }
+
+      .hero { padding-top: 90px; }
+
+      .hero h1 { font-size: 36px; }
+
+      .hero p { font-size: 16px; }
+
+      .section-title { font-size: 26px; }
+
+      .countdown-number { font-size: 30px; }
+
+      .countdown-colon { font-size: 28px; }
+
+      .countdown-item { padding: 12px 0; border-radius: 12px; }
+
+      .stat-divider { display: none; }
+
+      .stats-band-inner { gap: 20px; }
+
+      .stat-num { font-size: 22px; }
+    }
+
+    @media (max-width: 400px) {
+      .countdown-number { font-size: 26px; }
+      .countdown-label { font-size: 11px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
+  <!-- SCROLL PROGRESS -->
+  <div id="scroll-progress"></div>
+
+  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="logo">myGPA.uz</div>
     <div class="nav-links">
       <a href="#">Bosh sahifa</a>
-      <a href="#">Imkoniyatlar</a>
-      <a href="#">Bog'lanish</a>
+      <a href="#features">Imkoniyatlar</a>
+      <a href="#countdown">Sanash</a>
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
-      <div class="coming-soon-badge">Tez kunda</div>
-      <h1>myGPA.uz<br />Tez orada siz bilan!</h1>
-      <p>O'zbekiston talabalari uchun eng qulay GPA kalkulyator. <br />Hozirda saytimiz ustida ish olib borilmoqda.</p>
-      <button class="notify-btn" onclick="openNotifyModal()">Xabar olish</button>
+      <div class="badge">
+        <div class="badge-dot"></div>
+        Tez kunda ishga tushadi
+      </div>
+      <h1>O'z GPA'ingizni<br />nazorat qiling</h1>
+      <p>O'zbekiston talabalari uchun yaratilgan aqlli GPA kalkulyator.<br />Hozirda saytimiz ustida faol ish olib borilmoqda.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="openModal()">Xabardor qiling</button>
+        <a href="#features" class="btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+          Ko'proq
+        </a>
+      </div>
+    </div>
+
+    <!-- SCROLL HINT -->
+    <div class="scroll-hint" id="scrollHint">
+      <span>Pastga aylantiring</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
     </div>
   </section>
 
+  <!-- STATS BAND -->
+  <div class="stats-band reveal">
+    <div class="stats-band-inner">
+      <div class="stat-item">
+        <div class="stat-num">1 000+</div>
+        <div class="stat-label">Kutayotgan foydalanuvchi</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">GPA shkala turi</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">AI</div>
+        <div class="stat-label">Shaxsiy maslahat</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">Bepul</div>
+        <div class="stat-label">Har doim</div>
+      </div>
+    </div>
+  </div>
+
   <!-- FEATURES -->
-  <section class="features">
-    <h2 class="section-title">Nimalar qila olasiz?</h2>
-    <p class="section-subtitle">myGPA.uz sizga quyidagi imkoniyatlarni taqdim etadi</p>
+  <section class="features" id="features">
+    <p class="section-eyebrow reveal">Imkoniyatlar</p>
+    <h2 class="section-title reveal">Nimalar qila olasiz?</h2>
+    <p class="section-subtitle reveal">myGPA.uz sizga o'qishingizni yangi ko'z bilan ko'rishga yordam beradi</p>
     <div class="features-grid">
-      <div class="feature-card">
+      <div class="feature-card reveal">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
             <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
             <path d="M6 12v5c3 3 9 3 12 0v-5"/>
           </svg>
         </div>
         <h3>GPA hisoblash</h3>
-        <p>Fanlaringizni qo'shib, o'rtacha balingizni 100 ballik, 5 ballik va 4.0 shkalasida hisoblang.</p>
+        <p>Fanlaringizni qo'shib, o'rtacha balingizni 100 ballik, 5 ballik va 4.0 shkalasida real vaqtda kuzating.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <h3>Semestr tahlili</h3>
+        <p>Har bir semestr natijalarini solishtirib, GPA dinamikasini grafik ko'rinishida kuzating.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
             <path d="M12 2a8 8 0 0 1 8 8c0 5-8 12-8 12S4 15 4 10a8 8 0 0 1 8-8z"/>
             <circle cx="12" cy="10" r="2.5"/>
           </svg>
         </div>
         <h3>AI maslahat</h3>
-        <p>GPA ko'tarish bo'yicha shaxsiylashtirilgan tavsiyalar va strategiyalar.</p>
+        <p>GPA ko'tarish bo'yicha shaxsiylashtirilgan tavsiyalar va strategiyalar, aynan siz uchun.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
             <line x1="18" y1="20" x2="18" y2="10"/>
             <line x1="12" y1="20" x2="12" y2="4"/>
             <line x1="6" y1="20" x2="6" y2="14"/>
           </svg>
         </div>
         <h3>Statistika</h3>
-        <p>Semestrlar kesimida GPA dinamikasi va baholar taqsimotini kuzating.</p>
+        <p>Baholar taqsimoti, eng kuchli va zaif fanlaringiz — barchasi bir ekranda.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <rect x="5" y="2" width="14" height="20" rx="2"/>
+            <path d="M9 7h6M9 11h6M9 15h4"/>
+          </svg>
+        </div>
+        <h3>Maqsad qo'yish</h3>
+        <p>Kerakli GPA maqsadingizni kiriting, tizim kerakli ballarni avtomatik hisoblaydi.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+        <h3>Reytinglar</h3>
+        <p>Universitetingiz talabalari orasidagi o'rningizni anonim tarzda bilib oling.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <p class="section-eyebrow reveal">Jarayon</p>
+    <h2 class="section-title reveal">Qanday ishlaydi?</h2>
+    <p class="section-subtitle reveal">3 oddiy qadam — va GPA'ingiz nazorat ostida</p>
+    <div class="steps-grid">
+      <div class="step-item reveal">
+        <div class="step-num">1</div>
+        <h4>Ro'yxatdan o'ting</h4>
+        <p>Tez va oson — faqat email va parol kifoya.</p>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-num">2</div>
+        <h4>Fanlarni kiriting</h4>
+        <p>Semestrlar bo'yicha fanlar va baholaringizni qo'shing.</p>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-num">3</div>
+        <h4>Natijani ko'ring</h4>
+        <p>GPA, statistika va AI tavsiyalar — darhol tayyor.</p>
       </div>
     </div>
   </section>
 
   <!-- COUNTDOWN -->
-  <section class="countdown-section">
-    <h2>Loyiha ishga tushishiga</h2>
-    <p>myGPA.uz tez orada o'z ishini boshlaydi</p>
-    <div class="countdown-timer">
+  <section class="countdown-section" id="countdown">
+    <h2 class="reveal">Ishga tushishiga</h2>
+    <p class="reveal">myGPA.uz tez orada o'z ishini boshlaydi</p>
+    <div class="countdown-timer reveal">
       <div class="countdown-item">
         <div class="countdown-number" id="days">00</div>
         <div class="countdown-label">Kun</div>
       </div>
+      <div class="countdown-colon">:</div>
       <div class="countdown-item">
         <div class="countdown-number" id="hours">00</div>
         <div class="countdown-label">Soat</div>
       </div>
+      <div class="countdown-colon">:</div>
       <div class="countdown-item">
         <div class="countdown-number" id="minutes">00</div>
         <div class="countdown-label">Daqiqa</div>
       </div>
+      <div class="countdown-colon">:</div>
       <div class="countdown-item">
         <div class="countdown-number" id="seconds">00</div>
         <div class="countdown-label">Soniya</div>
@@ -500,100 +901,159 @@
     </div>
   </section>
 
-  <!-- INSTAGRAM SECTION -->
+  <!-- INSTAGRAM -->
   <section class="instagram-section">
-    <h3>Yangiliklardan xabardor bo'ling!</h3>
-    <p>myGPA.uz Instagram sahifamizga obuna bo'ling va birinchilardan bo'lib xabar oling!</p>
-    <a href="https://instagram.com/mygpa.uz" target="_blank" rel="noopener noreferrer" class="instagram-link">
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-      </svg>
+    <h3 class="reveal">Yangiliklardan xabardor bo'ling!</h3>
+    <p class="reveal">myGPA.uz Instagram sahifamizga obuna bo'ling va birinchilardan bo'lib xabar oling!</p>
+    <a href="https://instagram.com/mygpa.uz" target="_blank" rel="noopener noreferrer" class="instagram-link reveal">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
       <span>@mygpa.uz</span>
     </a>
   </section>
 
   <!-- FOOTER -->
   <footer class="footer">
-    <p>&copy; 2024 myGPA.uz. Barcha huquqlar himoyalangan.</p>
+    <p>&copy; 2026 myGPA.uz</p>
   </footer>
 
   <!-- MODAL -->
   <div class="modal-overlay" id="notifyModal">
     <div class="modal">
-      <h3>Xabar olish</h3>
-      <p>Saytimiz ishga tushganda birinchilardan bo'lib xabar oling!</p>
-      <input type="email" id="notifyEmail" placeholder="Email manzilingiz" />
-      <button class="modal-close" onclick="subscribe()">Yuborish</button>
-      <button class="modal-cancel" onclick="closeNotifyModal()">Yopish</button>
+      <div class="modal-handle"></div>
+
+      <!-- FORM -->
+      <div class="modal-form-content" id="modalForm">
+        <h3>Birinchi bo'lib xabar oling</h3>
+        <p>Email manzilingizni qoldiring — sayt ishga tushgan kuni sizga xabar beramiz.</p>
+        <div class="modal-input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <input type="email" id="notifyEmail" placeholder="sizning@email.com" autocomplete="email" />
+        </div>
+        <button class="modal-submit" id="submitBtn" onclick="subscribe()">
+          <span class="btn-text">Yuborish</span>
+          <div class="spinner"></div>
+        </button>
+        <button class="modal-cancel" onclick="closeModal()">Yopish</button>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="modal-success" id="modalSuccess">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </div>
+        <h3>Rahmat!</h3>
+        <p style="color:var(--muted); font-size:15px;">Saytimiz ishga tushganda sizga xabar beramiz.</p>
+        <button class="modal-submit" style="margin-top:8px;" onclick="closeModal()">
+          <span class="btn-text">Yopish</span>
+        </button>
+      </div>
     </div>
   </div>
 
   <script>
-    // COUNTDOWN TIMER (30 kundan boshlab)
-    function startCountdown() {
-      const targetDate = new Date();
-      targetDate.setDate(targetDate.getDate() + 30);
-      targetDate.setHours(0, 0, 0, 0);
+    // ─── SCROLL PROGRESS ───
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      document.getElementById('scroll-progress').style.width = pct + '%';
 
-      function updateCountdown() {
-        const now = new Date();
-        const diff = targetDate - now;
-
-        if (diff <= 0) {
-          document.getElementById('days').textContent = '00';
-          document.getElementById('hours').textContent = '00';
-          document.getElementById('minutes').textContent = '00';
-          document.getElementById('seconds').textContent = '00';
-          return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (86400000)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (3600000)) / (1000 * 60));
-        const seconds = Math.floor((diff % (60000)) / 1000);
-
-        document.getElementById('days').textContent = String(days).padStart(2, '0');
-        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      // Hide scroll hint after user starts scrolling
+      if (scrollTop > 60) {
+        const hint = document.getElementById('scrollHint');
+        if (hint) hint.style.opacity = '0';
       }
+    });
 
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    }
+    // ─── REVEAL ON SCROLL ───
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
 
-    // MODAL
-    function openNotifyModal() {
-      document.getElementById('notifyModal').classList.add('active');
-    }
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    function closeNotifyModal() {
-      document.getElementById('notifyModal').classList.remove('active');
-    }
+    // ─── COUNTDOWN ───
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 30);
+    targetDate.setHours(0, 0, 0, 0);
 
-    function subscribe() {
-      const email = document.getElementById('notifyEmail').value;
-      if (!email || !email.includes('@')) {
-        alert('Iltimos, to\'g\'ri email manzil kiriting!');
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function updateCountdown() {
+      const diff = targetDate - new Date();
+      if (diff <= 0) {
+        ['days','hours','minutes','seconds'].forEach(id => document.getElementById(id).textContent = '00');
         return;
       }
-      
-      alert('Rahmat! Saytimiz ishga tushganda sizga xabar beramiz.');
-      closeNotifyModal();
-      document.getElementById('notifyEmail').value = '';
+      document.getElementById('days').textContent    = pad(Math.floor(diff / 86400000));
+      document.getElementById('hours').textContent   = pad(Math.floor((diff % 86400000) / 3600000));
+      document.getElementById('minutes').textContent = pad(Math.floor((diff % 3600000) / 60000));
+      document.getElementById('seconds').textContent = pad(Math.floor((diff % 60000) / 1000));
     }
 
-    // Modalni tashqariga bosganda yopish
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ─── MODAL ───
+    function openModal() {
+      document.getElementById('notifyModal').classList.add('active');
+      setTimeout(() => document.getElementById('notifyEmail').focus(), 350);
+    }
+
+    function closeModal() {
+      document.getElementById('notifyModal').classList.remove('active');
+      setTimeout(() => {
+        document.getElementById('modalForm').classList.remove('hide');
+        document.getElementById('modalSuccess').classList.remove('show');
+        document.getElementById('notifyEmail').value = '';
+        const btn = document.getElementById('submitBtn');
+        btn.classList.remove('loading');
+      }, 300);
+    }
+
     document.getElementById('notifyModal').addEventListener('click', function(e) {
-      if (e.target === this) closeNotifyModal();
+      if (e.target === this) closeModal();
     });
 
-    // ESC tugmasi bilan yopish
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeNotifyModal();
-    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    startCountdown();
+    // ─── SUBSCRIBE → TELEGRAM ───
+    async function subscribe() {
+      const email = document.getElementById('notifyEmail').value.trim();
+      if (!email || !email.includes('@') || !email.includes('.')) {
+        document.getElementById('notifyEmail').style.borderColor = '#ef4444';
+        setTimeout(() => document.getElementById('notifyEmail').style.borderColor = '', 1500);
+        return;
+      }
+
+      const btn = document.getElementById('submitBtn');
+      btn.classList.add('loading');
+
+      const BOT_TOKEN = '8561049037:AAEbMoh0BTPRx5mUR99ui-uyg764vGO8spY';
+      const CHAT_ID   = '7123672881';
+      const now       = new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' });
+      const text      = `📬 *myGPA.uz — Yangi obuna!*\n\nEmail: \`${email}\`\nVaqt: ${now}`;
+      const url       = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}&parse_mode=Markdown`;
+
+      try {
+        await fetch(url);
+      } catch (_) {
+        // silently ignore network errors — still show success to user
+      }
+
+      btn.classList.remove('loading');
+      document.getElementById('modalForm').classList.add('hide');
+      document.getElementById('modalSuccess').classList.add('show');
+    }
   </script>
 </body>
 </html>
