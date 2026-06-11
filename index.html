@@ -226,43 +226,7 @@
       transform: translateY(0);
     }
 
-    /* STATS BAND */
-    .stats-band {
-      background: var(--blue);
-      padding: 20px 24px;
-    }
-
-    .stats-band-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-
-    .stat-item {
-      text-align: center;
-      color: white;
-    }
-
-    .stat-num {
-      font-size: 28px;
-      font-weight: 800;
-    }
-
-    .stat-label {
-      font-size: 13px;
-      opacity: 0.8;
-      margin-top: 2px;
-    }
-
-    .stat-divider {
-      width: 1px;
-      height: 36px;
-      background: rgba(255,255,255,0.25);
-    }
+    /* REMOVED STATS-BAND SECTION - FULLY DELETED (1000+ users, GPA scale types removed) */
 
     /* FEATURES */
     .features {
@@ -456,49 +420,87 @@
       line-height: 1.55;
     }
 
-    /* INSTAGRAM */
-    .instagram-section {
+    /* SOCIAL + CONTACT SECTION (Instagram + Email + Telegram) */
+    .social-contact-section {
       padding: 72px 24px;
       text-align: center;
       background: var(--bg-soft);
     }
 
-    .instagram-section h3 {
+    .social-contact-section h3 {
       font-size: 28px;
       font-weight: 700;
       margin-bottom: 10px;
     }
 
-    .instagram-section p {
+    .social-contact-section p {
       color: var(--muted);
       margin-bottom: 28px;
       font-size: 16px;
     }
 
-    .instagram-link {
+    .contact-flex {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .contact-link {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45);
-      padding: 14px 32px;
-      border-radius: 50px;
+      padding: 12px 28px;
+      border-radius: 60px;
       text-decoration: none;
-      color: white;
       font-weight: 600;
-      font-size: 17px;
+      font-size: 16px;
       transition: all 0.25s;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      border: 1px solid transparent;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
 
-    .instagram-link:hover {
+    .instagram-badge {
+      background: linear-gradient(135deg, #833AB4, #FD1D1D, #FCAF45);
+      color: white;
+    }
+
+    .email-badge {
+      background: #fff;
+      color: var(--blue);
+      border-color: rgba(22,132,172,0.3);
+    }
+
+    .telegram-badge {
+      background: #fff;
+      color: #2AABEE;
+      border-color: rgba(42,171,238,0.3);
+    }
+
+    .contact-link:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
     }
 
-    .instagram-link svg {
+    .instagram-badge:hover {
+      box-shadow: 0 12px 24px rgba(131,58,180,0.25);
+    }
+
+    .email-badge:hover {
+      background: #f0f9ff;
+      border-color: var(--blue);
+    }
+
+    .telegram-badge:hover {
+      background: #f0fafe;
+      border-color: #2AABEE;
+    }
+
+    .contact-link svg {
       width: 22px;
       height: 22px;
-      fill: white;
       flex-shrink: 0;
     }
 
@@ -699,11 +701,8 @@
 
       .countdown-item { padding: 12px 0; border-radius: 12px; }
 
-      .stat-divider { display: none; }
-
-      .stats-band-inner { gap: 20px; }
-
-      .stat-num { font-size: 22px; }
+      .contact-flex { flex-direction: column; align-items: center; gap: 14px; }
+      .contact-link { width: 80%; justify-content: center; }
     }
 
     @media (max-width: 400px) {
@@ -756,7 +755,7 @@
     </div>
   </section>
 
-  <!-- FEATURES -->
+  <!-- FEATURES (unchanged, except removed stats-band) -->
   <section class="features" id="features">
     <p class="section-eyebrow reveal">Imkoniyatlar</p>
     <h2 class="section-title reveal">Nimalar qila olasiz?</h2>
@@ -770,7 +769,7 @@
           </svg>
         </div>
         <h3>GPA hisoblash</h3>
-        <p>Fanlaringizni qo'shib, o'rtacha balingizni 100 ballik, 5 ballik va 4.0 shkalasida real vaqtda kuzating.</p>
+        <p>Fanlaringizni qo'shib, o'rtacha balingizni real vaqtda kuzating. Aqlli tizim sizning natijangizni aniq hisoblaydi.</p>
       </div>
       <div class="feature-card reveal">
         <div class="feature-icon">
@@ -825,7 +824,7 @@
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
+  <!-- HOW IT WORKS (unchanged) -->
   <section class="how-section">
     <p class="section-eyebrow reveal">Jarayon</p>
     <h2 class="section-title reveal">Qanday ishlaydi?</h2>
@@ -849,7 +848,7 @@
     </div>
   </section>
 
-  <!-- COUNTDOWN -->
+  <!-- COUNTDOWN (unchanged) -->
   <section class="countdown-section" id="countdown">
     <h2 class="reveal">Ishga tushishiga</h2>
     <p class="reveal">myGPA.uz tez orada o'z ishini boshlaydi</p>
@@ -876,14 +875,33 @@
     </div>
   </section>
 
-  <!-- INSTAGRAM -->
-  <section class="instagram-section">
+  <!-- NEW SOCIAL + CONTACT SECTION (Instagram, Email, Telegram) -->
+  <section class="social-contact-section">
     <h3 class="reveal">Yangiliklardan xabardor bo'ling!</h3>
-    <p class="reveal">myGPA.uz Instagram sahifamizga obuna bo'ling va birinchilardan bo'lib xabar oling!</p>
-    <a href="https://instagram.com/mygpa.uz" target="_blank" rel="noopener noreferrer" class="instagram-link reveal">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-      <span>@mygpa.uz</span>
-    </a>
+    <p class="reveal">myGPA.uz ijtimoiy tarmoqlarda va telegramda — eng so'nggi yangiliklar, maslahatlar va chiqish sanasi haqida birinchilardan bo'lib xabar oling.</p>
+    <div class="contact-flex">
+      <!-- Instagram (original style kept) -->
+      <a href="https://instagram.com/mygpa.uz" target="_blank" rel="noopener noreferrer" class="contact-link instagram-badge reveal">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        <span>@mygpa.uz</span>
+      </a>
+      <!-- EMAIL (new) -->
+      <a href="mailto:info@mygpa.uz" class="contact-link email-badge reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <span>info@mygpa.uz</span>
+      </a>
+      <!-- TELEGRAM CHANNEL (new) -->
+      <a href="https://t.me/mygpauz" target="_blank" rel="noopener noreferrer" class="contact-link telegram-badge reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.5 4.5L2.5 12.5L9 13.5L12.5 20.5L21.5 4.5Z" />
+          <path d="M9 13.5L15 9" />
+        </svg>
+        <span>@mygpauz</span>
+      </a>
+    </div>
   </section>
 
   <!-- FOOTER -->
@@ -891,7 +909,7 @@
     <p>&copy; 2026 myGPA.uz</p>
   </footer>
 
-  <!-- MODAL -->
+  <!-- MODAL (unchanged logic, but keeps subscription via telegram) -->
   <div class="modal-overlay" id="notifyModal">
     <div class="modal">
       <div class="modal-handle"></div>
@@ -938,7 +956,6 @@
       const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       document.getElementById('scroll-progress').style.width = pct + '%';
 
-      // Hide scroll hint after user starts scrolling
       if (scrollTop > 60) {
         const hint = document.getElementById('scrollHint');
         if (hint) hint.style.opacity = '0';
